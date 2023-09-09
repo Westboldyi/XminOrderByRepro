@@ -6,7 +6,7 @@ using XminOrderByRepro.Data;
 
 namespace XminOrderByRepro.Data;
 
-public class ApplicationDbContext :DbContext
+public class ApplicationDbContext : DbContext
 {
     public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
         : base(options)
@@ -23,14 +23,14 @@ public class ApplicationDbContext :DbContext
     protected override void OnModelCreating(ModelBuilder builder)
     {
         builder.Entity<Bar>();
-        
+
 
         //Configuring with a string converter will result in a count of 4 entities materialized (unexpected).
 
-        builder.Entity<Foo>().Property(p=>p.JsonBlob).HasConversion<string>(to => "{}", from => new List<string>());
+        builder.Entity<Foo>().Property(p => p.JsonBlob).HasConversion<string>(to => "{}", from => new List<string>());
 
         //Ignoring/not configuring the JsonBlob property will result in a count of 3 entities materialized (expected).
-        //builder.Entity<Foo>().Ignore(p => p.Json);
+        //builder.Entity<Foo>().Ignore(p => p.JsonBlob);
 
         base.OnModelCreating(builder);
     }
