@@ -25,10 +25,11 @@ var app = builder.Build();
 using var scope = app.Services.CreateScope();
 
 var dbContext = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
+await dbContext.Database.MigrateAsync();
 
 var query = new QueryClass(dbContext);
 
-await query.Query();
+await query.Query2();
 
 
 
